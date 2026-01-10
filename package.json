@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/LiebgottLiu/Nimo_Cryptocurrency/issues"
   },
-  "homepage": "https://github.com/LiebgottLiu/Nimo_Cryptocurrency#readme"
+  "homepage": "https://github.com/LiebgottLiu/Nimo_Cryptocurrency#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
