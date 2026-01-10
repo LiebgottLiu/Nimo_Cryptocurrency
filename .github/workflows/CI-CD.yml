@@ -39,8 +39,6 @@ jobs:
 
       # install sam
       - uses: aws-actions/setup-sam@v2
-        with:
-          version: latest   
 
       - run: |
           sam build
