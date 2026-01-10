@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Crypto API Serverless Stack
+
+Globals:
+  Function:
+    Runtime: nodejs18.x
+    Timeout: 10
+    MemorySize: 128
+
+Resources:
+  PriceServiceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: services/price-service/index.handler
+      Runtime: nodejs18.x
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: CryptoHistoryTable
+        - arn:aws:iam::aws:policy/AmazonSESFullAccess
+      Events:
+        PriceAPI:
+          Type: Api
+          Properties:
+            Path: /crypto/price
+            Method: post
+
+  HistoryServiceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: services/history-service/index.handler
+      Runtime: nodejs18.x
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: CryptoHistoryTable
+      Events:
+        HistoryAPI:
+          Type: Api
+          Properties:
+            Path: /crypto/history
+            Method: get
