@@ -17,8 +17,10 @@ const validateRequest = ({ crypto, email }) => {
 
 // request entry point
 exports.getPrice = async(req, res) => {
-    const {crypto, email} = req.body;
+    let { crypto, email } = req.body;
 
+    if (typeof crypto === "string") crypto = crypto.trim();
+    if (typeof email === "string") email = email.trim();
 
     const errors = validateRequest({ crypto, email });
     if (errors.length > 0) {
@@ -29,7 +31,7 @@ exports.getPrice = async(req, res) => {
 
     try {
         const service = priceFactory.create();
-        const result = await service.execute(crypto.trim(), email.trim());
+        const result = await service.execute(crypto, email);
 
         return res.status(200).json(result);
     } catch (error) {
