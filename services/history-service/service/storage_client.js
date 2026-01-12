@@ -6,7 +6,7 @@ class DynamoDBStorageClient {
         const client = new DynamoDBClient({ region: process.env.AWS_REGION || "ap-southeast-2" });
         this.docClient = DynamoDBDocumentClient.from(client);
         this.tableName = process.env.CRYPTO_HISTORY_TABLE || "CryptoHistoryTable";
-        this.emailIndex = "email-index"; // DynamoDB GSI
+        this.emailIndex = "email-iindex"; // DynamoDB GSI
     }
 
     async getByEmail(email) {
