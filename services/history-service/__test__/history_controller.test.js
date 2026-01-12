@@ -20,8 +20,8 @@ describe("getHistory controller", () => {
     req.query.email = "user@test.com";
 
     const mockHistoryList = [
-      { crypto: "bitcoin", searchedAt: "2026-01-10T09:21:00Z" },
-      { crypto: "ethereum", searchedAt: "2026-01-09T22:10:00Z" }
+      { crypto: "bitcoin", searchedAt: "2026-01-10T09:21:00Z", price: 20000, currency: "USD" },
+      { crypto: "ethereum", searchedAt: "2026-01-09T22:10:00Z", price: 1500, currency: "USD" }
     ];
 
     const mockService = {
@@ -39,14 +39,24 @@ describe("getHistory controller", () => {
     expect(res.json).toHaveBeenCalledWith(mockHistoryList);
   });
 
-  test("should return 500 for invalid email", async () => {
+  test("should return 400 for invalid email format", async () => {
     req.query.email = "invalid-email";
 
     await getHistory(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       error: { message: "Invalid email format" }
+    });
+  });
+
+  test("should return 400 if email is missing", async () => {
+    // req.query.email = undefined
+    await getHistory(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({
+      error: { message: "Email is required" }
     });
   });
 

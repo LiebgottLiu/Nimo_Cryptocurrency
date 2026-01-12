@@ -1,11 +1,9 @@
-
-class HistoryService{
-    constructor({storageClient }){
+class HistoryService {
+    constructor({ storageClient }) {
         this.storageClient = storageClient;
     }
 
-    async getByEmail(email){
-        // return mock data
+    async getByEmail(email) {
         return this.storageClient.getByEmail(email);
     }
 }
