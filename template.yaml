@@ -4,7 +4,7 @@ Description: Crypto API Serverless Stack
 
 Globals:
   Function:
-    Runtime: nodejs18.x
+    Runtime: nodejs20.x
     Timeout: 10
     MemorySize: 128
 
@@ -19,7 +19,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: services/price-service/index.handler
-      Runtime: nodejs18.x
+      Runtime: nodejs20.x
       Policies:
         - DynamoDBCrudPolicy:
             TableName: CryptoHistoryTable
@@ -29,6 +29,7 @@ Resources:
           COINGECKO_API_KEY: !Ref CoinApiKeyParameter
           CRYPTO_HISTORY_TABLE: CryptoHistoryTable
           SES_SENDER_EMAIL: liuzhuoyang0315@gmail.com
+          
       Events:
         PriceAPI:
           Type: Api
@@ -40,7 +41,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: services/history-service/index.handler
-      Runtime: nodejs18.x
+      Runtime: nodejs20.x
       Policies:
         - DynamoDBReadPolicy:
             TableName: CryptoHistoryTable

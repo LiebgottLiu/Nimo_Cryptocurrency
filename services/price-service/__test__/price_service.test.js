@@ -42,7 +42,7 @@ describe("PriceService", () => {
     expect(mockCoinGeckoClient.getCurrentPrice).toHaveBeenCalledWith("bitcoin", "usd");
 
     expect(mockHistoryWriter.save).toHaveBeenCalledTimes(1);
-    expect(mockHistoryWriter.save).toHaveBeenCalledWith( {"cryptos": "bitcoin", "currency": "USD", "email": "test@test.com", "price": 1000});
+    expect(mockHistoryWriter.save).toHaveBeenCalledWith( "bitcoin", "test@test.com", 1000, "USD");
 
     expect(mockEmailClient.send).toHaveBeenCalledTimes(1);
     expect(mockEmailClient.send).toHaveBeenCalledWith(

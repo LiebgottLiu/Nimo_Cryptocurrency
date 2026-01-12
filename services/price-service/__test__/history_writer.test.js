@@ -34,11 +34,11 @@ describe("HistoryWriter Unit Test", () => {
 
     // check returned item
     expect(item).toHaveProperty("id");
-    expect(item).toHaveProperty("cryptos", "bitcoin");
+    expect(item).toHaveProperty("crypto", "bitcoin");
     expect(item).toHaveProperty("email", "test@example.com");
     expect(item).toHaveProperty("price", 12345);
     expect(item).toHaveProperty("currency", "USD");
-    expect(item).toHaveProperty("createdAt");
+    expect(item).toHaveProperty("searchedAt");
 
     // check DynamoDBDocumentClient.send 
     expect(mockSend).toHaveBeenCalledTimes(1);
@@ -46,7 +46,7 @@ describe("HistoryWriter Unit Test", () => {
     expect(calledCommand).toBeInstanceOf(PutCommand);
     expect(calledCommand.input.TableName).toBe(writer.tableName);
     expect(calledCommand.input.Item).toMatchObject({
-      cryptos: "bitcoin",
+      crypto: "bitcoin",
       email: "test@example.com",
       price: 12345,
       currency: "USD"
