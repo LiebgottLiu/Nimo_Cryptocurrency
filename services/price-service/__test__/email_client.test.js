@@ -67,7 +67,7 @@ describe("EmailClient", () => {
     const error = new Error("SES send error");
     mockSend.mockRejectedValue(error);
 
-    // spy console.error 防止污染
+    // spy console.error 
     const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     await expect(emailClient.send(to, subject, body)).rejects.toThrow("SES send error");
