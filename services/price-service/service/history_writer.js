@@ -1,6 +1,5 @@
 const{ DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
-const { v4: uuidv4 } = require("uuid");
 
 //write search history 
 class HistoryWriter{
@@ -12,10 +11,10 @@ class HistoryWriter{
     }
 
 
-    async save(crypto, email, price, currency){
+    async save(cryptos, email, price, currency){
         const item = {
-            id: uuidv4(),
-            crypto,
+            id: crypto.randomUUID(),
+            cryptos,
             email,
             price,
             currency,
