@@ -28,6 +28,7 @@ Resources:
         Variables:
           COINGECKO_API_KEY: !Ref CoinApiKeyParameter
           CRYPTO_HISTORY_TABLE: CryptoHistoryTable
+          SES_SENDER_EMAIL: liuzhuoyang0315@gmail.com
       Events:
         PriceAPI:
           Type: Api

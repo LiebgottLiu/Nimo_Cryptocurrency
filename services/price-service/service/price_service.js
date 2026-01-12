@@ -23,13 +23,16 @@ class PriceService{
 
         //write search history to db 
         await this.historyWriter.save({
-            crypto,
+            cryptos:crypto,
             email,
             price,
             currency: "USD",
         });
 
         //sending email
+        const subject = `Current Price of ${crypto}`;
+        const body = `The current price of ${crypto} is $${price} USD.`;
+        await this.emailClient.send(email, subject, body);
 
         //return states 
         return{
