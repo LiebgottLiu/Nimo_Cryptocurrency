@@ -8,6 +8,12 @@ Globals:
     Timeout: 10
     MemorySize: 128
 
+Parameters:
+  CoinApiKeyParameter:
+    Type: String
+    Description: "CoinGeCko API Key"
+    NoEcho: true 
+
 Resources:
   PriceServiceFunction:
     Type: AWS::Serverless::Function
@@ -18,6 +24,9 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: CryptoHistoryTable
         - arn:aws:iam::aws:policy/AmazonSESFullAccess
+      Environment:
+        Variables:
+          COINGECKO_API_KEY: !Ref CoinApiKeyParameter
       Events:
         PriceAPI:
           Type: Api

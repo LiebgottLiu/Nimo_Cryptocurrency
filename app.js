@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cryptoRoutes = require("./routes/crypto_routes");
 

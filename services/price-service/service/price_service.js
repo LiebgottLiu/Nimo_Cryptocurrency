@@ -3,14 +3,23 @@ const HistoryWriter = require("./history_writer");
 // process service logic
 
 class PriceService{
-    constructor({ historyWriter }) {
+    constructor({ historyWriter,coinGeckoClient  }) {
         this.historyWriter = historyWriter;
+        this.coinGeckoClient = coinGeckoClient;
     }
+
 
     async execute(crypto,email){
 
-        //mock price 
-        const price = 1000;
+        const {
+            price,
+            marketCap,
+            volume24h,
+            change24h,
+            lastUpdatedAt
+            } = await this.coinGeckoClient.getCurrentPrice(crypto, "usd");
+
+        await this.historyWriter.save(crypto);
 
         //sending email
 
@@ -19,12 +28,15 @@ class PriceService{
 
         //return states 
         return{
-            message: "Price email has been sent",
+            message: `Current price of ${crypto} has been sent to ${email}`,
             crypto,
             price,
-            currency: "AUD"
+            currency: "USD",
+            lastUpdatedAt: new Date().toISOString()
         };
     }
+
+
 }
 
 module.exports = PriceService;
