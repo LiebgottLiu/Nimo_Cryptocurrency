@@ -18,9 +18,14 @@ describe("PriceService", () => {
       })
     };
 
+    const mockEmailClient = {
+      send: jest.fn().mockResolvedValue({})
+    };
+
     const service = new PriceService({
       historyWriter: mockHistoryWriter,
-      coinGeckoClient: mockCoinGeckoClient
+      coinGeckoClient: mockCoinGeckoClient,
+      emailClient: mockEmailClient
     });
 
     const result = await service.execute("bitcoin", "test@test.com");
@@ -36,7 +41,14 @@ describe("PriceService", () => {
     expect(mockCoinGeckoClient.getCurrentPrice).toHaveBeenCalledTimes(1);
     expect(mockCoinGeckoClient.getCurrentPrice).toHaveBeenCalledWith("bitcoin", "usd");
 
-    expect(mockHistoryWriter.save).toHaveBeenCalledTimes(2);
-    expect(mockHistoryWriter.save).toHaveBeenCalledWith("bitcoin");
+    expect(mockHistoryWriter.save).toHaveBeenCalledTimes(1);
+    expect(mockHistoryWriter.save).toHaveBeenCalledWith( {"cryptos": "bitcoin", "currency": "USD", "email": "test@test.com", "price": 1000});
+
+    expect(mockEmailClient.send).toHaveBeenCalledTimes(1);
+    expect(mockEmailClient.send).toHaveBeenCalledWith(
+      "test@test.com",
+      "Current Price of bitcoin",
+      expect.stringContaining("bitcoin")
+    );
   });
 });

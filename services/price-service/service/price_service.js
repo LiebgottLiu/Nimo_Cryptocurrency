@@ -3,9 +3,10 @@ const HistoryWriter = require("./history_writer");
 // process service logic
 
 class PriceService{
-    constructor({ historyWriter,coinGeckoClient  }) {
+    constructor({ historyWriter,coinGeckoClient,emailClient }) {
         this.historyWriter = historyWriter;
         this.coinGeckoClient = coinGeckoClient;
+        this.emailClient = emailClient;
     }
 
 
@@ -19,7 +20,6 @@ class PriceService{
             lastUpdatedAt
             } = await this.coinGeckoClient.getCurrentPrice(crypto, "usd");
 
-        await this.historyWriter.save(crypto);
 
         //write search history to db 
         await this.historyWriter.save({
