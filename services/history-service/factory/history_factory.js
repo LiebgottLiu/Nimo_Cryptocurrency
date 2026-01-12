@@ -1,18 +1,11 @@
 const HistoryService = require("../service/history_service");
-
-class MockStorageClient{
-    async getAll(){
-        return [
-            { crypto: "bitcoin", searchedAt: "2026-01-10T09:21:00Z" },
-            { crypto: "ethereum", searchedAt: "2026-01-09T22:10:00Z" }
-        ];
-    }
-}
+const DynamoDBStorageClient = require("../service/storage_client");
 
 
 class historyFactory{
-    static create(){
-        return new HistoryService({storageClient: new MockStorageClient()});
+    static create() {
+        const storageClient = new DynamoDBStorageClient();
+        return new HistoryService({ storageClient });
     }
 }
 

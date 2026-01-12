@@ -19,7 +19,7 @@ const validateRequest = ({ crypto, email }) => {
 exports.getPrice = async(req, res) => {
     let { crypto, email } = req.body;
 
-    if (typeof crypto === "string") crypto = crypto.trim();
+    if (typeof crypto === "string") crypto = crypto.trim().toLowerCase();
     if (typeof email === "string") email = email.trim();
 
     const errors = validateRequest({ crypto, email });

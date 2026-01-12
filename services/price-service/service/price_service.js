@@ -31,7 +31,7 @@ class PriceService{
 
         //sending email
         const subject = `Current Price of ${crypto}`;
-        const body = `The current price of ${crypto} is $${price} USD.`;
+        const body = `Hi there ! \n The current price of ${crypto} is $${price} USD.`;
         await this.emailClient.send(email, subject, body);
 
         //return states 
