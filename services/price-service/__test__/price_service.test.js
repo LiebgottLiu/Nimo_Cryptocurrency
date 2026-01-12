@@ -36,7 +36,6 @@ describe("PriceService", () => {
     expect(mockCoinGeckoClient.getCurrentPrice).toHaveBeenCalledTimes(1);
     expect(mockCoinGeckoClient.getCurrentPrice).toHaveBeenCalledWith("bitcoin", "usd");
 
-    // HistoryWriter save should be called twice according to your code
     expect(mockHistoryWriter.save).toHaveBeenCalledTimes(2);
     expect(mockHistoryWriter.save).toHaveBeenCalledWith("bitcoin");
   });

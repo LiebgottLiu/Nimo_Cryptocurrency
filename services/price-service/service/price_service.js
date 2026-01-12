@@ -21,10 +21,15 @@ class PriceService{
 
         await this.historyWriter.save(crypto);
 
-        //sending email
-
         //write search history to db 
-        await this.historyWriter.save(crypto);
+        await this.historyWriter.save({
+            crypto,
+            email,
+            price,
+            currency: "USD",
+        });
+
+        //sending email
 
         //return states 
         return{
